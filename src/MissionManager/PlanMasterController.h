@@ -92,6 +92,8 @@ public:
     Vehicle* controllerVehicle(void) { return _controllerVehicle; }
     Vehicle* managerVehicle(void) { return _managerVehicle; }
 
+    MultiVehicleManager*    multiVehicleMgr () {return _multiVehicleMgr;}
+
     static const int    kPlanFileVersion;
     static const char*  kPlanFileType;
     static const char*  kJsonMissionObjectKey;

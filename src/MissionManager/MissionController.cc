@@ -253,6 +253,12 @@ void MissionController::sendToVehicle(void)
             sendItemsToVehicle(_managerVehicle, &emptyModel);
         } else {
             sendItemsToVehicle(_managerVehicle, _visualItems);
+            sendItemsToVehicle(_masterController->multiVehicleMgr()->getVehicleById(1), _visualItems);
+            sendItemsToVehicle(_masterController->multiVehicleMgr()->getVehicleById(2), _visualItems);
+            sendItemsToVehicle(_masterController->multiVehicleMgr()->getVehicleById(3), _visualItems);
+            sendItemsToVehicle(_masterController->multiVehicleMgr()->getVehicleById(4), _visualItems);
+            sendItemsToVehicle(_masterController->multiVehicleMgr()->getVehicleById(5), _visualItems);
+            sendItemsToVehicle(_masterController->multiVehicleMgr()->getVehicleById(6), _visualItems);
         }
         setDirty(false);
     }
