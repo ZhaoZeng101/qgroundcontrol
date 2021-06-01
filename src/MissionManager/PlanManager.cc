@@ -18,6 +18,7 @@
 #include "QGCApplication.h"
 #include "MissionCommandTree.h"
 #include "MissionCommandUIInfo.h"
+#include "QGCGeo.h"
 
 QGC_LOGGING_CATEGORY(PlanManagerLog, "PlanManagerLog")
 
@@ -85,6 +86,40 @@ void PlanManager::writeMissionItems(const QList<MissionItem*>& missionItems)
 
     for (int i=firstIndex; i<missionItems.count(); i++) {
         MissionItem* item = missionItems[i];
+
+        double tempAltitude;
+
+        if(i == 1){ // set takeoff point
+           QGeoCoordinate  missionTakeoffPosition;
+           convertNedToGeo(_vehicle->mission_takeoff_x(), _vehicle->mission_takeoff_y(), 0, _vehicle->coordinate(),&missionTakeoffPosition);
+           item->setParam5(missionTakeoffPosition.latitude());
+           item->setParam6(missionTakeoffPosition.longitude());
+           tempAltitude = _vehicle->altitude_above_ground() ;
+           if(tempAltitude >= 150){
+               item->setParam7(tempAltitude);
+               qDebug() << "takeoff altitude item->setParam7:" << tempAltitude;
+           }else
+           {
+               tempAltitude = 150;
+               item->setParam7(tempAltitude);
+               qDebug() << "warning takeoff altitude item->setParam7:" << tempAltitude;
+           }
+
+       }else if(i == missionItems.count() - 2) { //set middle point loiter altitude
+           tempAltitude = _vehicle->altitude_above_ground() ;
+           if(tempAltitude >= 150){
+               item->setParam7(tempAltitude);
+               qDebug() << "takeoff altitude item->setParam7:" << tempAltitude;
+           }else
+           {
+               tempAltitude = 150;
+               item->setParam7(tempAltitude);
+               qDebug() << "warning takeoff altitude item->setParam7:" << tempAltitude;
+           }
+       }
+
+
+
         _writeMissionItems.append(item); // PlanManager takes control of passed MissionItem
 
         item->setIsCurrentItem(i == firstIndex);

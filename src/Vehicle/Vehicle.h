@@ -790,6 +790,10 @@ public:
 
     // Property accessors
 
+    float mission_takeoff_x() { return _mission_takeoff_x; }
+    float mission_takeoff_y() { return _mission_takeoff_y; }
+    double altitude_above_ground() { return _altitude_local; }
+
     QGeoCoordinate coordinate() { return _coordinate; }
     QGeoCoordinate armedPosition    () { return _armedPosition; }
 
@@ -1616,5 +1620,9 @@ private:
     static const char* _settingsGroup;
     static const char* _joystickModeSettingsKey;
     static const char* _joystickEnabledSettingsKey;
+
+    float _mission_takeoff_x, _mission_takeoff_y;
+    float _roll_radians, _pitch_radians, _yaw_radians;
+    double _altitude_local; //vehicle altitude above ground
 
 };

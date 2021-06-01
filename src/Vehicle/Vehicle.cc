@@ -1111,6 +1111,12 @@ void Vehicle::_handleAttitudeWorker(double rollRadians, double pitchRadians, dou
     pitch = QGC::limitAngleToPMPIf(pitchRadians);
     yaw = QGC::limitAngleToPMPIf(yawRadians);
 
+    _roll_radians = roll;
+    _pitch_radians = pitch;
+    _yaw_radians = yaw;
+    _mission_takeoff_x = cos(_yaw_radians) * 250 - sin(_yaw_radians) * 0;
+    _mission_takeoff_y = sin(_yaw_radians) * 250 - cos(_yaw_radians) * 0;
+
     roll = qRadiansToDegrees(roll);
     pitch = qRadiansToDegrees(pitch);
     yaw = qRadiansToDegrees(yaw);
